@@ -85,7 +85,7 @@ if [ $PACKETLOSS = 100 ]; then
       if [ -z "$ROUTERMULTICAST" ]; then
          echo "<--- --- --->"
          echo ""
-         echo "ERROR: can't found router with link local address"
+         echo "ERROR: can't find router with link local address"
          exit 1
       else
          route del -inet6 default; route add -inet6 default $ROUTERMULTICAST
@@ -98,7 +98,7 @@ else
    if [ -z "$ROUTERMULTICAST" ]; then
       echo "<--- --- --->"
       echo ""
-      echo "ERROR: can't found router with link local address"
+      echo "ERROR: can't find router with link local address"
       exit 1
    else
       route del -inet6 default; route add -inet6 default $ROUTERMULTICAST
