@@ -71,7 +71,7 @@ else
 if [ $PACKETLOSS = 100 ]; then
    echo "<--- --- --->"
    echo ""
-   echo "ERROR: ping6 failed, try again"
+   echo "ERROR: ping6 failed, try again ..."
    echo ""
    (
    route del -inet6 default; route add -inet6 default fe80::1%$DEFAULTROUTER
