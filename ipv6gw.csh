@@ -95,16 +95,23 @@ if [ $PACKETLOSS = 100 ]; then
    fi
    )
 else
-   route del -inet6 default; route add -inet6 default $ROUTERMULTICAST
-   (
-   echo ""
-   echo "<--- --- --->"
-   echo ""
-   echo "traceroute6 test to PLITC:"
-   echo ""
+   if [ -z "$ROUTERMULTICAST" ]; then
+      echo "<--- --- --->"
+      echo ""
+      echo "ERROR: can't found router with link local address"
+      exit 1
+   else
+      route del -inet6 default; route add -inet6 default $ROUTERMULTICAST
+      (
+      echo ""
+      echo "<--- --- --->"
+      echo ""
+      echo "traceroute6 test to PLITC:"
+      echo ""
       (traceroute6 -n -v $TESTSERVER)
-   )
-   exit 0
+      )
+      exit 0
+   fi
 fi
 )
 fi
