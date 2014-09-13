@@ -34,8 +34,8 @@
 UNAME=$(uname)
 MYNAME=$(whoami)
 DEFAULTROUTER=$(grep "ipv6_defaultrouter" /etc/rc.conf | sed 's/ipv6_defaultrouter="fe80::1%//' | sed 's/"//')
-ROUTERMULTICAST=$(ping6 -I `(grep "ipv6_defaultrouter" /etc/rc.conf | sed 's/ipv6_defaultrouter="fe80::1%//' | sed 's/"//')` -c 1 ff02::2 | grep fe80 | tail -n 1 | awk '{print $4}' | sed 's/,//')
-PACKETLOSS=$(ping6 -I `(grep "ipv6_defaultrouter" /etc/rc.conf | sed 's/ipv6_defaultrouter="fe80::1%//' | sed 's/"//')` -c 1 ff02::2 | grep packet | tail -n 1 | awk '{print $7}' | sed 's/.0%//')
+ROUTERMULTICAST=$(ping6 -I `(grep "ipv6_defaultrouter" /etc/rc.conf | sed 's/ipv6_defaultrouter=//' | sed 's/fe80::1%//' | sed 's/"//g')` -c 1 ff02::2 | grep fe80 | tail -n 1 | awk '{print $4}' | sed 's/,//')
+PACKETLOSS=$(ping6 -I `(grep "ipv6_defaultrouter" /etc/rc.conf | sed 's/ipv6_defaultrouter=//' | sed 's/fe80::1%//' | sed 's/"//g')` -c 1 ff02::2 | grep packet | tail -n 1 | awk '{print $7}' | sed 's/.0%//')
 # PLITC - ipv6 testserver
 TESTSERVER="2a01:4f8:131:200c::3:3544"
 ### // stage0 ###
@@ -64,7 +64,7 @@ fi
 if [ -z "$DEFAULTROUTER" ]; then
    echo "<--- --- --->"
    echo ""
-   echo "ERROR: You must set ipv6_defaultrouter=fe80::1%interface in /etc/rc.conf"
+   echo 'ERROR: You must set ipv6_defaultrouter="fe80::1%interface" in /etc/rc.conf'
    exit 1
 else
 (
