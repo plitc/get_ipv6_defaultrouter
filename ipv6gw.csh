@@ -81,8 +81,17 @@ if [ $PACKETLOSS = 100 ]; then
       echo "ERROR: ping6 failed, hopeless!"
       exit 1
    else
-      route del -inet6 default; route add -inet6 default $ROUTERMULTICAST
-      exit 0
+      (
+      if [ -z "$ROUTERMULTICAST" ]; then
+         echo "<--- --- --->"
+         echo ""
+         echo "ERROR: can't found router with link local address"
+         exit 1
+      else
+         route del -inet6 default; route add -inet6 default $ROUTERMULTICAST
+         exit 0
+      fi
+      )
    fi
    )
 else
